@@ -1,6 +1,6 @@
 apiVersion: v2
-name: tor-relay
-description: A Helm chart for deploying a Tor relay node
+name: tor-bridge
+description: A Helm chart for deploying a Tor bridge node
 type: application
 version: 0.0.1
 appVersion: "0.22.0"
