@@ -26,28 +26,4 @@ entries:
     - https://github.com/habetuz/tor-helm/releases/download/tor-bridge-0.0.1/tor-bridge-0.0.1.tgz
     version: 0.0.1
   tor-relay:
-  - apiVersion: v2
-    appVersion: 0.22.0
-    created: "2025-12-10T21:20:18.744942779Z"
-    description: A Helm chart for deploying a Tor relay node
-    digest: b3c34023dc9729f45157c4f05c3b887631e0a10e0e5832b593bde85be81e4a36
-    home: https://github.com/habetuz/tor-helm
-    icon: https://upload.wikimedia.org/wikipedia/commons/c/c9/Tor_Browser_icon.svg
-    keywords:
-    - tor
-    - bridge
-    - privacy
-    - anonymity
-    maintainers:
-    - email: info@marvin-fuchs.de
-      name: Marvin Fuchs
-      url: https://marvin-fuchs.de
-    name: tor-relay
-    sources:
-    - https://gitlab.torproject.org/tpo/core/tor/
-    - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird
-    type: application
-    urls:
-    - https://github.com/habetuz/tor-helm/releases/download/tor-relay-0.0.1/tor-relay-0.0.1.tgz
-    version: 0.0.1
 generated: "2025-12-10T21:22:15.915876045Z"
