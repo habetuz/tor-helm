@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "tor-bridge.fullname" . }}
+  labels:
+    {{- with .Values.deployment.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  annotations:
+    {{- with .Values.deployment.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.additionalAnnotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "tor-bridge.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "tor-bridge.selectorLabels" . | nindent 8 }}
+        {{- with .Values.additionalLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.deployment.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      annotations:
+        {{- with .Values.deployment.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.additionalAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: tor-bridge
+          image: "{{ .Values.deployment.image.repository }}:{{ ternary .Chart.AppVersion .Values.deployment.image.tag (ne .Values.deployment.image.tag "") }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: orport
+              containerPort: {{ .Values.service.orPort }}
+            - name: ptport
+              containerPort: {{ .Values.service.ptPort }}
+          volumeMounts:
+            - name: tor-data
+              mountPath: /var/lib/tor
+          env:
+            - name: EMAIL
+              value: "{{ .Values.email }}"
+            - name: OR_PORT
+              value: "{{ .Values.service.orPort }}"
+            - name: PT_PORT
+              value: "{{ .Values.service.ptPort }}"
+            - name: OBFS4_ENABLE_ADDITIONAL_VARIABLES
+              value: "1"
+            {{- range $key, $value := .Values.torrc }}
+            - name: {{ printf "OBFS4V_%s" $key }}
+              value: "{{ $value }}"
+            {{- end }}

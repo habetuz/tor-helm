@@ -1,0 +1,21 @@
+apiVersion: v2
+name: tor-relay
+description: A Helm chart for deploying a Tor relay node
+type: application
+version: 0.0.1
+appVersion: "0.22.0"
+keywords:
+  - tor
+  - bridge
+  - privacy
+  - anonymity
+maintainers:
+  - name: Marvin Fuchs
+    email: info@marvin-fuchs.de
+    url: https://marvin-fuchs.de
+
+home: https://github.com/habetuz/tor-helm
+sources:
+  - https://gitlab.torproject.org/tpo/core/tor/
+  - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird
+icon: https://upload.wikimedia.org/wikipedia/commons/c/c9/Tor_Browser_icon.svg

@@ -1,0 +1,57 @@
+# Default values for tor-bridge.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+affinity: {}
+nodeSelector: {}
+
+# Your bridge's Tor service.
+service:
+  externalTrafficPolicy: Local
+  # Your bridge's Tor port.
+  orPort: 9001
+  # Your bridge's obfs4 port.
+  ptPort: 9030
+  type: LoadBalancer
+  externalIPs: []
+
+# Email address which the Tor Project can use to contact you about your bridge, if problems occur.
+email: ""
+
+# Labels that are added to pods, services, and PVCs.
+additionalLabels: {}
+
+# Annotations that are added to pods, services, and PVCs.
+additionalAnnotations: {}
+
+deployment:
+  image:
+    repository: thetorproject/obfs4-bridge
+    tag: ""
+  labels: {}
+  annotations: {}
+  podLabels: {}
+  podAnnotations: {}
+
+persistence:
+  # Enable persistence for Tor data directory. Recommended, as it stores key information.
+  enabled: false
+  labels: {}
+  annotations: []
+  accessModes:
+    - ReadWriteOnce
+  size: 1Gi
+  storageClass: ""
+
+# Object containing additional configuration options for Tor.
+# Example:
+# torrc:
+#  - key: Nickname
+#    value: MyBridge
+#  - key: HashedControlPassword
+#    valueFrom:
+#      secretKeyRef:
+#        name: tor-secret
+#        key: hashed-password
+torrc: {}
+
